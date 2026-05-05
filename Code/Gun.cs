@@ -3,16 +3,21 @@ using TMPro;
 
 public class Gun : MonoBehaviour
 {
-    private float rotateOffset = 0f; // Đổi từ 180f thành 0f
-    [SerializeField] private Transform firePos;
-    [SerializeField] private GameObject bulletPrefabs;
-    [SerializeField] private float shotDelay = 0.15f;
-    private float nextShot;
-    [SerializeField] private int maxAmmo = 26;
-    public int currentAmmo;
-    [SerializeField] private TextMeshProUGUI ammoText;
-    [SerializeField] private Audio audio;
+    private float rotateOffset = 0f;
 
+    [Header("Setup")]
+    public Transform firePos;
+    public GameObject bulletPrefabs;
+    public float shotDelay = 0.15f;
+
+    private float nextShot;
+
+    public int maxAmmo = 26;
+    public int currentAmmo;
+
+    [Header("External References")]
+    public TextMeshProUGUI ammoText;
+    public Audio audioManager;
 
     void Start()
     {
@@ -29,26 +34,20 @@ public class Gun : MonoBehaviour
 
     void RotateGun()
     {
-        if (Input.mousePosition.x < 0 || Input.mousePosition.x > Screen.width || Input.mousePosition.y < 0 || Input.mousePosition.y > Screen.height)
-            return;
+        if (Camera.main == null) return;
 
-        // Đổi cách tính displacement
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 displacement = mousePosition - transform.position;
-        displacement.z = 0;
+        Vector3 direction = mousePosition - transform.position;
+        direction.z = 0;
 
-        float angle = Mathf.Atan2(displacement.y, displacement.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle + rotateOffset);
 
-        // Kiểm tra flip
+        // Flip súng
         if (angle > 90 || angle < -90)
-        {
             transform.localScale = new Vector3(1, -1, 1);
-        }
         else
-        {
             transform.localScale = new Vector3(1, 1, 1);
-        }
     }
 
     void Shoot()
@@ -56,10 +55,15 @@ public class Gun : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && currentAmmo > 0 && Time.time > nextShot)
         {
             nextShot = Time.time + shotDelay;
-            Instantiate(bulletPrefabs, firePos.position, firePos.rotation);
+
+            if (bulletPrefabs != null && firePos != null)
+                Instantiate(bulletPrefabs, firePos.position, firePos.rotation);
+
             currentAmmo--;
             UpdateAmmoText();
-            audio.PlayShootSound();
+
+            if (audioManager != null)
+                audioManager.PlayShootSound();
         }
     }
 
@@ -69,22 +73,17 @@ public class Gun : MonoBehaviour
         {
             currentAmmo = maxAmmo;
             UpdateAmmoText();
-            audio.PlayReLoadSound();
-        }
-    }
-    private void UpdateAmmoText()
-{
-    if (ammoText != null)
-    {
-        if (currentAmmo > 0)
-        {
-            ammoText.text = currentAmmo.ToString();  
-        }
-        else
-        {
-            ammoText.text = "0";
-        }
-    }
-}
 
+            if (audioManager != null)
+                audioManager.PlayReLoadSound();
+        }
+    }
+
+    void UpdateAmmoText()
+    {
+        if (ammoText != null)
+        {
+            ammoText.text = currentAmmo.ToString();
+        }
+    }
 }
