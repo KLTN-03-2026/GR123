@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1bd4167f8d05fe4a8c8baac73bdb52e, type: 3}
+  m_Name: SungLuvVang
+  m_EditorClassIdentifier: 
+  gunID: 0
+  shopIcon: {fileID: 0}
+  priceCoin: 0
+  priceGem: 0
+  shotDelay: 0.15
+  maxAmmoInClip: 26
+  maxReserveAmmo: 100
+  bulletPrefab: {fileID: 737759807783259979, guid: 645e2b63cd0d6654398e04951ef0ba4c, type: 3}
+  gunPrefab: {fileID: 3854390713468293076, guid: 11167c201bd0f1b4585648d4635028ce, type: 3}

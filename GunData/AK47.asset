@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1bd4167f8d05fe4a8c8baac73bdb52e, type: 3}
+  m_Name: AK47
+  m_EditorClassIdentifier: 
+  gunID: 0
+  shopIcon: {fileID: 21300000, guid: 6daa3f6a352f79145aefc2d43a4c5f9b, type: 3}
+  priceCoin: 6000
+  priceGem: 1600
+  shotDelay: 0.15
+  maxAmmoInClip: 26
+  maxReserveAmmo: 100
+  damage: 10
+  gunPrefab: {fileID: 521725426673147798, guid: f6dc1cdedfd1f214685d97a4b5be1866, type: 3}
+  bulletPrefab: {fileID: 737759807783259979, guid: 645e2b63cd0d6654398e04951ef0ba4c, type: 3}
